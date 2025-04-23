@@ -34,11 +34,10 @@ else:
         prediction = model.predict(input_data)  # Ensure that model.predict is returning a valid result
         if len(prediction) > 0:  # Check if prediction was made
             if prediction[0] == 1:
-                st.error("🚨 ALERT: This transaction is predicted as FRAUD!") 
+                st.error("🚨 ALERT: This transaction is predicted as FRAUD!")
             else:
                 st.success("✅ This transaction is predicted as NOT FRAUD.")
-        else:
-            st.error("⚠️ Unable to make a prediction.")
+
 
 
 
