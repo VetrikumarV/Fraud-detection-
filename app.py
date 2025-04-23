@@ -3,12 +3,16 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import os
 
 # Load the trained model
 @st.cache_resource
 def load_model():
-    with open('model.pkl', 'rb') as file:
-        return pickle.load(file)
+    if os.path.exists("model.pkl"):
+        with open("model.pkl", "rb") as file:
+            return pickle.load(file)
+    else:
+        return None
 
 model = load_model()
 
@@ -24,7 +28,15 @@ input_data = np.array([[amount, transaction_time, user_age]])
 
 # Make prediction when button is clicked
 if st.button("Predict"):
-    prediction = model.predict(input_data)[0]
+    if model is None:
+        st.warning("⚠️ Model file not found. Please upload or add 'model.pkl' to this directory.")
+    else:
+        prediction = model.predict(input_data)[0]
+        if prediction == 1:
+            st.error("🚨 ALERT: This transaction is predicted as FRAUD!") 
+        else:
+            st.success("✅ This transaction is predicted as NOT FRAUD.")
+
     if prediction == 1:
         st.error("🚨 ALERT: This transaction is predicted as FRAUD!") 
     else:
