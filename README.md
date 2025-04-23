@@ -2,6 +2,7 @@
 # Fraud Detection App
 
 This is a simple web app built using Streamlit to predict whether a transaction is fraudulent based on user inputs.
+Check it out here:https://j9jxcupphlpf2t2tjbnjle.streamlit.app/
 
 ## 💻 How to Run Locally
 
