@@ -1,6 +1,4 @@
-
 import streamlit as st
-import pandas as pd
 import numpy as np
 import pickle
 import os
@@ -31,11 +29,15 @@ if st.button("Predict"):
     if model is None:
         st.warning("⚠️ Model file not found. Please upload or add 'model.pkl' to this directory.")
     else:
-        prediction = model.predict(input_data)[0]
-        if prediction == 1:
-            st.error("🚨 ALERT: This transaction is predicted as FRAUD!") 
+        prediction = model.predict(input_data)  # Ensure that model.predict is returning a valid result
+        if len(prediction) > 0:  # Check if prediction was made
+            if prediction[0] == 1:
+                st.error("🚨 ALERT: This transaction is predicted as FRAUD!") 
+            else:
+                st.success("✅ This transaction is predicted as NOT FRAUD.")
         else:
-            st.success("✅ This transaction is predicted as NOT FRAUD.")
+            st.error("⚠️ Unable to make a prediction.")
+
 
     if prediction == 1:
         st.error("🚨 ALERT: This transaction is predicted as FRAUD!") 
