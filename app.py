@@ -12,6 +12,7 @@ def load_model():
     else:
         return None
 
+# Load model once
 model = load_model()
 
 st.title("🔍 Fraud Detection App")
@@ -21,14 +22,15 @@ amount = st.number_input("Enter transaction amount:", min_value=0.0)
 transaction_time = st.slider("Enter transaction time (hour 0-23):", 0, 23, 12)
 user_age = st.number_input("Enter user's age:", min_value=18, max_value=100, value=30)
 
-# Create input data for prediction
-input_data = np.array([[amount, transaction_time, user_age]])
+# Check if the model is loaded
+if model is None:
+    st.warning("⚠️ Model file 'model.pkl' not found. Please upload the model file.")
+else:
+    # Create input data for prediction
+    input_data = np.array([[amount, transaction_time, user_age]])
 
-# Make prediction when button is clicked
-if st.button("Predict"):
-    if model is None:
-        st.warning("⚠️ Model file not found. Please upload or add 'model.pkl' to this directory.")
-    else:
+    # Make prediction when button is clicked
+    if st.button("Predict"):
         prediction = model.predict(input_data)  # Ensure that model.predict is returning a valid result
         if len(prediction) > 0:  # Check if prediction was made
             if prediction[0] == 1:
@@ -37,6 +39,7 @@ if st.button("Predict"):
                 st.success("✅ This transaction is predicted as NOT FRAUD.")
         else:
             st.error("⚠️ Unable to make a prediction.")
+
 
 
     if prediction == 1:
