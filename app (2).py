@@ -33,9 +33,9 @@ else:
     if st.button("Predict"):
         prediction = model.predict(input_data)  # Predicting
 
-        # Ensure prediction is an array and we access the first element
+        # Ensure prediction is an array and access the first element
         if len(prediction) > 0:  # Check if prediction was made
-            if prediction[0] == 1:
+            if prediction[0] == 1:  # Compare first element of prediction array
                 st.error("🚨 ALERT: This transaction is predicted as FRAUD!")
             else:
                 st.success("✅ This transaction is predicted as NOT FRAUD.")
@@ -44,7 +44,5 @@ else:
 
 
 
-    if prediction == 1:
-        st.error("🚨 ALERT: This transaction is predicted as FRAUD!") 
-    else:
-        st.success("✅ This transaction is predicted as NOT FRAUD.")
+
+
