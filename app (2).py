@@ -31,12 +31,15 @@ else:
 
     # Make prediction when button is clicked
     if st.button("Predict"):
-        prediction = model.predict(input_data)  # Ensure that model.predict is returning a valid result
+        prediction = model.predict(input_data)  # Predicting
+
+        # Ensure prediction is an array and we access the first element
         if len(prediction) > 0:  # Check if prediction was made
             if prediction[0] == 1:
                 st.error("🚨 ALERT: This transaction is predicted as FRAUD!")
             else:
                 st.success("✅ This transaction is predicted as NOT FRAUD.")
+
 
 
 
